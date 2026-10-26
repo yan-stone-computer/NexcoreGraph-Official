@@ -1,0 +1,511 @@
+/* 启核图策 · Web 正式版增量样式（在 web-demo 基准 app.css 之上追加，不修改基准）
+   覆盖：拍照入库真实相机、对话预览卡片、打印排版、管理员端表格。 */
+
+/* ---------- 拍照入库：摄像头与连拍缩略图（F1） ---------- */
+.viewfinder-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+.cam-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  background: var(--surface-sunken);
+}
+.shot-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.shot-thumb {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.shot-thumb img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: var(--radius-m);
+  border: 1px solid var(--border);
+}
+.shot-thumb .shot-del {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--danger);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.viewfinder.drag-over {
+  outline: 2px dashed var(--accent);
+  outline-offset: 4px;
+}
+
+/* ---------- AI 对话：写操作预览卡（P0-2 / F5.5） ---------- */
+.chat-card {
+  margin-top: 10px;
+  background: var(--surface-overlay);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  padding: 12px;
+}
+.chat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+.chat-card-row {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+.chat-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ---------- 管理员端（F10） ---------- */
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.tbl th,
+.tbl td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.tbl th {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.tbl tbody tr:hover td {
+  background: var(--surface-raised);
+}
+.tbl .num {
+  font-variant-numeric: tabular-nums;
+}
+.tbl-wrap {
+  overflow-x: auto;
+}
+.admin-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.admin-kpi {
+  padding: 16px;
+}
+.admin-kpi .stat-value {
+  font-size: 24px;
+  font-weight: 800;
+}
+.usage-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-overlay);
+  overflow: hidden;
+  margin-top: 8px;
+}
+.usage-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--primary);
+}
+
+/* ---------- 打印排版（采购清单 / 菜谱） ---------- */
+@media print {
+  body.printing {
+    background: #fff;
+  }
+  body.printing .sidebar,
+  body.printing .topbar,
+  body.printing .ai-ball,
+  body.printing .ai-panel,
+  body.printing .toast-wrap,
+  body.printing .overlay-backdrop,
+  body.printing .overlay-close,
+  body.printing .drawer-handle,
+  body.printing .demo-note {
+    display: none !important;
+  }
+  body.printing .overlay {
+    position: static !important;
+  }
+  body.printing .overlay-panel {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+    overflow: visible !important;
+  }
+  body.printing .content {
+    padding: 0 !important;
+  }
+  body.printing .card {
+    box-shadow: none !important;
+    border: 1px solid #ddd;
+    break-inside: avoid;
+  }
+}
+
+/* ---------- AI 工作台（W-A1 / WX1） ---------- */
+.wb-view .view-head {
+  margin-bottom: 14px;
+}
+.wb-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  border-left: 3px solid var(--primary);
+}
+.wb-summary-main {
+  flex: 1;
+  min-width: 0;
+}
+.wb-summary-kicker {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+.wb-summary-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin: 0;
+}
+.wb-summary-age {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.wb-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .wb-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.wb-queue-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 13px;
+}
+.wb-queue-item:last-child {
+  border-bottom: none;
+}
+.wb-queue-item.done {
+  opacity: 0.55;
+}
+.wb-queue-kind {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+  border-radius: 6px;
+  padding: 2px 7px;
+}
+.wb-queue-item .wb-queue-kind:not(:first-child) {
+  display: none;
+}
+.wb-queue-text {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-primary);
+}
+.wb-queue-item.done .wb-queue-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+.wb-chat-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
+}
+.wb-chat-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 340px;
+  padding: 6px 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.wb-chat-list .msg {
+  display: flex;
+  gap: 8px;
+  margin: 7px 0;
+  font-size: 13px;
+}
+.wb-chat-list .msg-body {
+  max-width: 86%;
+}
+.wb-chat-list .msg-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.wb-chat-list .msg-avatar.ai {
+  background: var(--primary);
+  color: #fff;
+}
+.wb-chat-list .msg-avatar.me {
+  background: var(--surface-overlay);
+  border: 1px solid var(--border);
+}
+.wb-chat-list .msg.user {
+  flex-direction: row-reverse;
+}
+.wb-chat-list .msg.user .msg-body {
+  text-align: right;
+}
+.wb-chat-list .msg-time {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+.wb-chat-list .ai-tag {
+  color: var(--primary);
+  font-weight: 600;
+}
+.wb-chat-list .typing {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.typing-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--text-muted);
+  animation: wb-blink 1.2s infinite;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.typing-dot:nth-child(4) {
+  animation-delay: 0.4s;
+}
+@keyframes wb-blink {
+  0%, 80%, 100% { opacity: 0.25; }
+  40% { opacity: 1; }
+}
+.wb-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 0 6px;
+}
+.wb-quick-btn {
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: var(--surface-overlay);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.wb-quick-btn:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.wb-chat-card .chat-input {
+  display: flex;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.wb-chat-card .chat-input input {
+  flex: 1;
+  background: var(--surface-overlay);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  padding: 9px 12px;
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+}
+.wb-entry-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.wb-entry-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--primary);
+}
+.wb-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.wb-stat-v {
+  font-size: 20px;
+  font-weight: 800;
+}
+.wb-stat-v.warn {
+  color: var(--warn, #f59e0b);
+}
+.wb-stat-l {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.plan-chip-row {
+  margin-top: 6px;
+}
+.btn-warn-on {
+  border-color: var(--warn, #f59e0b);
+  color: var(--warn, #f59e0b);
+}
+
+/* ---------- 资源图谱（WX3-WX4） ---------- */
+.graph-card {
+  padding: 10px;
+  overflow-x: auto;
+}
+.graph-svg-wrap {
+  min-width: 640px;
+}
+.graph-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.graph-svg .gnode {
+  cursor: pointer;
+  transition: stroke-width 0.12s ease;
+}
+.graph-svg .gnode:hover {
+  stroke-width: 3;
+}
+.graph-svg .glabel {
+  font-size: 11.5px;
+  fill: var(--text-secondary);
+}
+.graph-svg .glabel-strong {
+  font-size: 12.5px;
+  font-weight: 700;
+  fill: var(--text-primary);
+}
+.graph-svg .glabel-sub {
+  font-size: 10.5px;
+  fill: var(--text-muted);
+}
+.graph-svg .glabel-warn {
+  fill: var(--danger);
+  font-weight: 700;
+}
+.graph-svg .gedge {
+  stroke: var(--border);
+  stroke-width: 1;
+  fill: none;
+  opacity: 0.7;
+}
+.graph-svg .gedge-flow {
+  stroke: var(--primary);
+  stroke-opacity: 0.5;
+  stroke-dasharray: 3 3;
+}
+.graph-svg .gaxis {
+  stroke: var(--border);
+  stroke-dasharray: 2 4;
+}
+.graph-filter {
+  background: var(--surface-overlay);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  color: var(--text-primary);
+  font-size: 13px;
+  padding: 7px 10px;
+}
+.graph-detail {
+  margin-top: 16px;
+}
+.graph-detail-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  padding: 16px;
+}
+.graph-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.graph-detail-facts {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+.graph-path {
+  padding: 8px 10px;
+  background: var(--surface-overlay);
+  border-radius: var(--radius-m);
+  margin-bottom: 6px;
+}
+.graph-path-chain {
+  font-size: 12.5px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.graph-path-meta {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
